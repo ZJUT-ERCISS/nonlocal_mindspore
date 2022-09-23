@@ -1,5 +1,5 @@
 ```BibTeX
-@misc{monlocal_misdspore,
+@misc{nonlocal_misdspore,
     author = {Xiaolong Wang and Ross Girshick and Abhinav Gupta and Kaiming He},
     title = {Mindspore Video Models},
     year = {2022},
