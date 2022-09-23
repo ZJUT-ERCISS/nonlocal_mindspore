@@ -24,7 +24,7 @@ from mindspore.nn import SoftmaxCrossEntropyWithLogits
 from mindspore.train import Model
 
 
-from src.models.nonlocal3d import nonlocal3d50
+from src.models.nonlocal3d import nonlocal3d
 from src.data.kinetics400 import Kinetic400
 from src.data.transforms import VideoCenterCrop
 from src.data.transforms import VideoShortEdgeResize, VideoRescale, VideoReOrder, VideoNormalize
@@ -63,7 +63,7 @@ def nonlocal_eval(args_opt):
     dataset_eval = dataset_eval.run()
 
     # Create model.
-    network = nonlocal3d50()
+    network = nonlocal3d(keep_prob=1.0)
 
     if args_opt.pretrained:
         param_dict = load_checkpoint(args_opt.pretrained_model_dir)

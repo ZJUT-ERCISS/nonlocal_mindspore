@@ -35,8 +35,7 @@ __all__ = [
     'NLInflateBlock3D',
     'NLInflateResNet3D',
     'NLResInflate3D50',
-    'nonlocal3d',
-    'nonlocal3d50'
+    'nonlocal3d'
 ]
 
 
@@ -454,6 +453,7 @@ class NLResInflate3D50(NLInflateResNet3D):
             NLInflateBlock3D, [3, 4, 6, 3], **kwargs)
 
 
+@ClassFactory.register(ModuleType.MODEL)
 class nonlocal3d(nn.Cell):
     """
     nonlocal3d model
@@ -530,18 +530,3 @@ class nonlocal3d(nn.Cell):
         x = self.head(x)
 
         return x
-
-
-@ClassFactory.register(ModuleType.MODEL)
-def nonlocal3d50(
-        in_d: int = 32,
-        in_h: int = 224,
-        in_w: int = 224,
-        num_classes: int = 400,
-        keep_prob: float = 1.0,
-):
-    """
-    nonlocal3d50 model.
-    """
-
-    return nonlocal3d(in_d, in_h, in_w, num_classes, keep_prob)

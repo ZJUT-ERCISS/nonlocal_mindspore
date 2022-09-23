@@ -25,7 +25,7 @@ from mindspore.train import Model
 from mindspore.train.callback import ModelCheckpoint, CheckpointConfig, LossMonitor
 
 
-from src.models.nonlocal3d import nonlocal3d50
+from src.models.nonlocal3d import nonlocal3d
 from src.data.kinetics400 import Kinetic400
 from src.data.transforms import VideoRandomCrop, VideoRandomHorizontalFlip
 from src.data.transforms import VideoShortEdgeResize, VideoRescale, VideoReOrder, VideoNormalize
@@ -83,7 +83,7 @@ def nonlocal_train(args_opt):
     step_size = dataset_train.get_dataset_size()
 
     # Create model.
-    network = nonlocal3d50()
+    network = nonlocal3d(keep_prob=0.5)
 
     if args_opt.pretrained:
         param_dict = load_checkpoint(args_opt.pretrained_model_dir)
