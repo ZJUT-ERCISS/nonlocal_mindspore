@@ -40,8 +40,8 @@ Dataset used: [Kinetics400](https://www.deepmind.com/open-source/kinetics)
 - Dataset size：
     |category | Number of data  | 
     | :------: | :----------: | 
-    |Training set | 234619  |  
-    |Validation set | 19761 | 
+    |Training set | 238797 |  
+    |Validation set | 19877 | 
 Because of the expirations of some YouTube links, the sizes of kinetics dataset copies may be different
 
 ## [Environment Requirements](#contents)
