@@ -13,19 +13,11 @@
     - [Script and Sample Code](#script-and-sample-code)
     - [Script Parameters](#script-parameters)
   - [Training Process](#training-process)
-    - [Distributed Training](#distributed-training)
       - [Distributed training on GPU](#distributed-training-on-gpu)
   - [Evaluation Process](#evaluation-process)
-    - [Evaluation](#evaluation)
       - [Evaluating on GPU](#evaluating-on-gpu)
   - [Model Download url](#model-download-url)
   - [Citation](#citation)
-
-    - [Model Description](#model-description)
-        - [Performance](#performance)
-            - [Evaluation Performance](#evaluation-performance)
-    - [Description of Random Situation](#description-of-random-situation)
-    <!-- - [ModelZoo Homepage](#modelzoo-homepage) -->
 
 ## [Description](#contents)
 
@@ -259,8 +251,6 @@ data_loader:
 ```
 
 ## [Training Process](#contents)
-### Distributed Training
-
 #### Distributed training on GPU
 
 - train_distributed.log for Kinetics400
@@ -286,8 +276,6 @@ epoch time: 18002 s, per step time: 2066 ms
 ```
 
 ## [Evaluation Process](#contents)
-
-### Evaluation
 #### Evaluating on GPU
 
 - eval.log for Kinetics400
