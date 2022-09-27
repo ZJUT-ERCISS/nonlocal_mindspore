@@ -171,7 +171,7 @@ loss:
 
 train:
     pre_trained: True
-    pretrained_model: "/home/cxhuang/nonlocal/best/nonlocal_ckpt_7/nonlocal-1_4975.ckpt"
+    pretrained_model: "/home/cxhuang/nonlocal/ms_nonlocal_dot_kinetics400_finetune.ckpt"
     ckpt_path: "./output/"
     epochs: 100
     save_checkpoint_epochs: 5
@@ -200,7 +200,7 @@ data_loader:
               seq_mode: 'interval'
               num_parallel_workers: 1
               shuffle: True
-              batch_size: 1
+              batch_size: 6
               frame_interval: 6
 
         map:
