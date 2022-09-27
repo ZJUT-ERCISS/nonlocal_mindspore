@@ -105,8 +105,7 @@ To validate the model, you can run the following script:
 ```text
 .
 └─nonlocal_mindspore
-  ├── README.md                           // descriptions about Nonlocal
-  │
+  │── src
   │   ├──config                    // parameter configuration for nonlocal train and eval
   │   ├──data                       //data generator
   │   ├──example                    // example for Nonlocal train and eval
@@ -115,6 +114,7 @@ To validate the model, you can run the following script:
   │   ├──optim                     // optimizer
   │   ├──schedule                 // lr
       ├──utils                   // General components (callback function)
+  ├── README.md                           // descriptions about Nonlocal
   ├── train.py                         // evaluation script
   ├── infer.py                         // training script
 ```
