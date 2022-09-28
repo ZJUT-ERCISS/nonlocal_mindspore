@@ -1,22 +1,21 @@
-# Nonlocal_mindspore
-
-- [Nonlocal_mindspore](#nonlocal_mindspore)
-  - [Description](#description)
-  - [Dataset](#dataset)
+- [Description](#description)
+- [Dataset](#dataset)
+- [Environment Requirements](#environment-requirements)
+- [Quick Start](#quick-start)
+  - [Requirements Installation](#requirements-installation)
   - [Dataset Preparation](#dataset-preparation)
   - [Model Checkpoints](#model-checkpoints)
   - [Running](#running)
-  - [Script Description](#script-description)
-    - [Script and Sample Code](#script-and-sample-code)
-    - [Script Parameters](#script-parameters)
+- [Script Description](#script-description)
+  - [Script and Sample Code](#script-and-sample-code)
+  - [Script Parameters](#script-parameters)
   - [Training Process](#training-process)
-      - [Distributed training on GPU](#distributed-training-on-gpu)
+    - [Distributed training on GPU](#distributed-training-on-gpu)
   - [Evaluation Process](#evaluation-process)
-      - [Evaluating on GPU](#evaluating-on-gpu)
-  - [Model Download url](#model-download-url)
-  - [Citation](#citation)
+- [Model Download url](#model-download-url)
+- [Citation](#citation)
 
-## [Description](#contents)
+# [Description](#contents)
 
 This code is a re-implementation of the video classification experiments in the paper [Non-local Neural Networks](https://arxiv.org/abs/1711.07971). The code is developed based on the [Mindspore]((https://www.mindspore.cn/install/en)) framework.
 <div align=center>
@@ -29,7 +28,7 @@ A non-local operation is a flexible building block and can be easily used togeth
 
 Table 1 baseline_ResNet50_C2D</div>
 Table 1 shows our C2D baseline under a ResNet-50 backbone.In this repositories, we use the Inflated 3D ConvNet(I3D) under a ResNet-50 backbone. One can turn the C2D model in Table 1into a 3D convolutional counterpart by “inflating” the kernels. For example, a 2D k×k kernel can be inflated as a 3D t×k×k kernel that spans t frames. And we add 5 blocks (3 to res4 and 2 to res3, to every other residual block). For more information, please read the [paper](./src/example/1711.07971v1.pdf).
-## [Dataset](#contents)
+# [Dataset](#contents)
 
 Dataset used: [Kinetics400](https://www.deepmind.com/open-source/kinetics)
 
@@ -62,8 +61,8 @@ The directory structure of Kinetic-400 dataset looks like:
         |-- kinetics-400_val.csv                    // validation dataset label file.
 
         ...
-
-## [Environment Requirements](#contents)
+```
+# [Environment Requirements](#contents)
 To run the python scripts in the repository, you need to prepare the environment as follow:
 
 - Python and dependencies
@@ -89,7 +88,7 @@ To run the python scripts in the repository, you need to prepare the environment
     - [MindSpore Tutorials](https://www.mindspore.cn/tutorials/en/master/index.html)
     - [MindSpore Python API](https://www.mindspore.cn/docs/en/master/index.html)
 
-## [Quick Start](#contents)
+# [Quick Start](#contents)
 
 ## [Requirements Installation](#contents)
 
@@ -125,9 +124,9 @@ To validate the model, you can run the following script:
  2. python infer.py -c [config_file]
 ```
 
-## [Script Description](#contents)
+# [Script Description](#contents)
 
-### [Script and Sample Code](#contents)
+## [Script and Sample Code](#contents)
 
 ```text
 .
@@ -209,7 +208,7 @@ To validate the model, you can run the following script:
 
 ```
 
-### [Script Parameters](#contents)
+## [Script Parameters](#contents)
 
 Parameters for both training and evaluation can be set in nonlocal.yaml
 
@@ -341,7 +340,7 @@ data_loader:
 ```
 
 ## [Training Process](#contents)
-#### Distributed training on GPU
+### Distributed training on GPU
 
 - train_distributed.log for Kinetics400
 
@@ -366,7 +365,6 @@ epoch time: 18002 s, per step time: 2066 ms
 ```
 
 ## [Evaluation Process](#contents)
-#### Evaluating on GPU
 
 - eval.log for Kinetics400
 
@@ -390,11 +388,11 @@ eval: 19877/19877
 {'Top_1_Accuracy': 0.7248, 'Top_5_Accuracy': 0.9072}
 ```
 
-## [Model Download url](#contents)
+# [Model Download url](#contents)
 
 You can download the nonlocal model for mindspore from [nonlocal_kinetics400_mindspore](https://zjuteducn-my.sharepoint.com/:u:/g/personal/201906010313_zjut_edu_cn/Ec-B_Hr00QRAs49Vd7Qg4PkBslya1SjAola4hg64tpI6Vg?e=YNm0Ig).
 
-## Citation
+# [Citation](#contents)
 ```BibTeX
 @article{NonLocal2018,
     author = {Xiaolong Wang and Ross Girshick and Abhinav Gupta and Kaiming He},
