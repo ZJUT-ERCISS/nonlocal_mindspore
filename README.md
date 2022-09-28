@@ -3,9 +3,6 @@
 - [Nonlocal_mindspore](#nonlocal_mindspore)
   - [Description](#description)
   - [Dataset](#dataset)
-  - [Environment Requirements](#environment-requirements)
-  - [Quick Start](#quick-start)
-  - [Requirements Installation](#requirements-installation)
   - [Dataset Preparation](#dataset-preparation)
   - [Model Checkpoints](#model-checkpoints)
   - [Running](#running)
@@ -22,7 +19,16 @@
 ## [Description](#contents)
 
 This code is a re-implementation of the video classification experiments in the paper [Non-local Neural Networks](https://arxiv.org/abs/1711.07971). The code is developed based on the [Mindspore]((https://www.mindspore.cn/install/en)) framework.
+<div align=center>
+<img src=./src/pic/nonlocal_block.png> 
 
+nonlocal_block </div>
+A non-local operation is a flexible building block and can be easily used together with convolutional/recurrent layers. It can be added into the earlier part of deep neural networks, unlike fc layers that are often used in the end. This allows us to build a richer hierarchy that combines both non-local and local information.
+<div align=center>
+<img src=./src/pic/baseline_ResNet50_C2D.png> 
+
+Table 1 baseline_ResNet50_C2D</div>
+Table 1shows our C2D baseline under a ResNet-50 backbone.In this repositories, we use the Inflated 3D ConvNet(I3D) under a ResNet-50 backbone. One can turn the C2D model in Table 1into a 3D convolutional counterpart by “inflating” the kernels. For example, a 2D k×k kernel can be inflated as a 3D t×k×k kernel that spans t frames. And we add 5 blocks (3 to res4 and 2 to res3, to every other residual block). For more information, please read the [paper](./src/example/1711.07971v1.pdf).
 ## [Dataset](#contents)
 
 Dataset used: [Kinetics400](https://www.deepmind.com/open-source/kinetics)
@@ -35,6 +41,27 @@ Dataset used: [Kinetics400](https://www.deepmind.com/open-source/kinetics)
     |Training set | 238797 |  
     |Validation set | 19877 | 
 Because of the expirations of some YouTube links, the sizes of kinetics dataset copies may be different
+```text
+The directory structure of Kinetic-400 dataset looks like:
+
+    .
+    |-kinetic-400
+        |-- train
+        |   |-- ___qijXy2f0_000011_000021.mp4       // video file
+        |   |-- ___dTOdxzXY_000022_000032.mp4       // video file
+        |    ...
+        |-- test
+        |   |-- __Zh0xijkrw_000042_000052.mp4       // video file
+        |   |-- __zVSUyXzd8_000070_000080.mp4       // video file
+        |-- val
+        |   |-- __wsytoYy3Q_000055_000065.mp4       // video file
+        |   |-- __vzEs2wzdQ_000026_000036.mp4       // video file
+        |    ...
+        |-- kinetics-400_train.csv                  // training dataset label file.
+        |-- kinetics-400_test.csv                   // testing dataset label file.
+        |-- kinetics-400_val.csv                    // validation dataset label file.
+
+        ...
 
 ## [Environment Requirements](#contents)
 To run the python scripts in the repository, you need to prepare the environment as follow:
@@ -117,6 +144,69 @@ To validate the model, you can run the following script:
   ├── README.md                           // descriptions about Nonlocal
   ├── train.py                         // evaluation script
   ├── infer.py                         // training script
+```
+```text
+.
+│  infer.py                                     // infer script
+│  README.md                                    // descriptions about Nonlocal
+│  train.py                                     // training scrip
+└─src
+    ├─config
+    │      nonlocal.yaml                        // Nonlocal parameter configuration
+    ├─data
+    │  │  builder.py                            // build data
+    │  │  download.py                           // download dataset
+    │  │  generator.py                          // generate video dataset
+    │  │  images.py                             // process image
+    │  │  kinetics400.py                        // kinetics400 dataset
+    │  │  meta.py                               // public API for dataset
+    │  │  path.py                               // IO path
+    │  │  video_dataset.py                      // video dataset
+    │  │
+    │  └─transforms
+    │          builder.py                       // build transforms
+    │          video_center_crop.py             // center crop
+    │          video_normalize.py               // normalize
+    │          video_random_crop.py             // random crop
+    │          video_random_horizontal_flip.py  // random horizontal flip
+    │          video_reorder.py                 // reorder
+    │          video_rescale.py                 // rescale
+    │          video_short_edge_resize.py       // short edge resize
+    │
+    ├─example
+    │      nonlocal_kinetics400_eval.py         // eval nonlocal model
+    │      nonlocal_kinetics400_train.py        // train nonlocal model
+    │
+    ├─loss
+    │      builder.py                           // build loss
+    │
+    ├─models
+    │  │  builder.py                            // build model
+    │  │  nonlocal3d.py                                // nonlocal model
+    │  │
+    │  └─layers
+    │          adaptiveavgpool3d.py             // adaptive average pooling 3D.
+    │          dropout_dense.py                 // dense head
+    │          inflate_conv3d.py                // inflate conv3d block
+    |          maxpool3d.py                     // 3D max pooling
+    |          maxpool3dwithpad.py              // 3D max pooling with padding operation
+    │          resnet3d.py                      // resnet backbone
+    │          unit3d.py                        // unit3d module
+    │
+    ├─optim
+    │      builder.py                           // build optimizer
+    │
+    ├─schedule
+    │      builder.py                           // build learning rate shcedule
+    │      lr_schedule.py                       // learning rate shcedule
+    │
+    └─utils
+            callbacks.py                        // eval loss monitor
+            check_param.py                      // check parameters
+            class_factory.py                    // class register
+            config.py                           // parameter configuration
+            six_padding.py                      // convert padding list into tuple
+
 ```
 
 ### [Script Parameters](#contents)
