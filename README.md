@@ -39,7 +39,7 @@ Dataset used: [Kinetics400](https://www.deepmind.com/open-source/kinetics)
     | :------: | :----------: | 
     |Training set | 238797 |  
     |Validation set | 19877 | 
-Because of the expirations of some YouTube links, the sizes of kinetics dataset copies may be different
+Because of the expirations of some YouTube links, the sizes of kinetics dataset copies may be different.
 ```text
 The directory structure of Kinetic-400 dataset looks like:
 
@@ -128,22 +128,6 @@ To validate the model, you can run the following script:
 
 ## [Script and Sample Code](#contents)
 
-```text
-.
-└─nonlocal_mindspore
-  │── src
-  │   ├──config                    // parameter configuration for nonlocal train and eval
-  │   ├──data                       //data generator
-  │   ├──example                    // example for Nonlocal train and eval
-  │   ├──loss                      // loss
-  │   ├──models                     // Nonlocal model
-  │   ├──optim                     // optimizer
-  │   ├──schedule                 // lr
-      ├──utils                   // General components (callback function)
-  ├── README.md                           // descriptions about Nonlocal
-  ├── train.py                         // evaluation script
-  ├── infer.py                         // training script
-```
 ```text
 .
 │  infer.py                                     // infer script
