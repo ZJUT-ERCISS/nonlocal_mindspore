@@ -12,7 +12,7 @@
   - [Training Process](#training-process)
     - [Distributed training on GPU](#distributed-training-on-gpu)
   - [Evaluation Process](#evaluation-process)
-- [Model Download url](#model-download-url)
+- [Model Download](#model-download)
 - [Citation](#citation)
 
 # [Description](#contents)
@@ -372,7 +372,7 @@ eval: 19877/19877
 {'Top_1_Accuracy': 0.7248, 'Top_5_Accuracy': 0.9072}
 ```
 
-# [Model Download url](#contents)
+# [Model Download](#contents)
 
 You can download the nonlocal model for mindspore from [nonlocal_kinetics400_mindspore](https://zjuteducn-my.sharepoint.com/:u:/g/personal/201906010313_zjut_edu_cn/Ec-B_Hr00QRAs49Vd7Qg4PkBslya1SjAola4hg64tpI6Vg?e=YNm0Ig).
 
