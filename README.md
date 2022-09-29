@@ -1,23 +1,28 @@
-- [Description](#description)
-- [Dataset](#dataset)
-- [Environment Requirements](#environment-requirements)
-- [Quick Start](#quick-start)
-  - [Requirements Installation](#requirements-installation)
-  - [Dataset Preparation](#dataset-preparation)
-  - [Model Checkpoints](#model-checkpoints)
-  - [Running](#running)
-- [Script Description](#script-description)
-  - [Script and Sample Code](#script-and-sample-code)
-  - [Script Parameters](#script-parameters)
+# Contents
+- [Contents](#contents)
+  - [Description](#description)
+  - [Model Architecture](#model-architecture)
+  - [Dataset](#dataset)
+  - [Environment Requirements](#environment-requirements)
+  - [Quick Start](#quick-start)
+    - [Requirements Installation](#requirements-installation)
+    - [Dataset Preparation](#dataset-preparation)
+    - [Model Checkpoints](#model-checkpoints)
+    - [Running](#running)
+  - [Script Description](#script-description)
+    - [Script and Sample Code](#script-and-sample-code)
+    - [Script Parameters](#script-parameters)
   - [Training Process](#training-process)
-    - [Distributed training on GPU](#distributed-training-on-gpu)
   - [Evaluation Process](#evaluation-process)
-- [Model Download](#model-download)
-- [Citation](#citation)
+  - [Citation](#citation)
 
-# [Description](#contents)
+
+
+## [Description](#contents)
 
 This code is a re-implementation of the video classification experiments in the paper [Non-local Neural Networks](https://arxiv.org/abs/1711.07971). The code is developed based on the [Mindspore]((https://www.mindspore.cn/install/en)) framework.
+
+## [Model Architecture](#contents)
 <div align=center>
 <img src=./src/pic/nonlocal_block.png> 
 
@@ -28,7 +33,7 @@ A non-local operation is a flexible building block and can be easily used togeth
 
 Table 1 baseline_ResNet50_C2D</div>
 Table 1 shows our C2D baseline under a ResNet-50 backbone.In this repositories, we use the Inflated 3D ConvNet(I3D) under a ResNet-50 backbone. One can turn the C2D model in Table 1into a 3D convolutional counterpart by “inflating” the kernels. For example, a 2D k×k kernel can be inflated as a 3D t×k×k kernel that spans t frames. And we add 5 blocks (3 to res4 and 2 to res3, to every other residual block). For more information, please read the [paper](./src/example/1711.07971v1.pdf).
-# [Dataset](#contents)
+## [Dataset](#contents)
 
 Dataset used: [Kinetics400](https://www.deepmind.com/open-source/kinetics)
 
@@ -62,7 +67,7 @@ The directory structure of Kinetic-400 dataset looks like:
 
         ...
 ```
-# [Environment Requirements](#contents)
+## [Environment Requirements](#contents)
 To run the python scripts in the repository, you need to prepare the environment as follow:
 
 - Python and dependencies
@@ -88,9 +93,9 @@ To run the python scripts in the repository, you need to prepare the environment
     - [MindSpore Tutorials](https://www.mindspore.cn/tutorials/en/master/index.html)
     - [MindSpore Python API](https://www.mindspore.cn/docs/en/master/index.html)
 
-# [Quick Start](#contents)
+## [Quick Start](#contents)
 
-## [Requirements Installation](#contents)
+### [Requirements Installation](#contents)
 
 Some packages in `requirements.txt` need Cython package to be installed first. For this reason, you should use the following commands to install dependencies:
 
@@ -98,35 +103,40 @@ Some packages in `requirements.txt` need Cython package to be installed first. F
 pip install Cython && pip install -r requirements.txt
 ```
 
-## [Dataset Preparation](#contents)
+### [Dataset Preparation](#contents)
 
 Nonlocal model uses kinetics400 dataset to train and validate in this repository. 
 
-## [Model Checkpoints](#contents)
+### [Model Checkpoints](#contents)
 
 Our non-local model which migrated from the pretrain model for pytorch [i3d_nl_dot_product_r50](https://download.openmmlab.com/mmaction/recognition/i3d/i3d_nl_dot_product_r50_32x2x1_100e_kinetics400_rgb/i3d_nl_dot_product_r50_32x2x1_100e_kinetics400_rgb_20200814-7c30d5bb.pth) is finetuned on the Kinetics400 dataset for 1 epochs.
 It can be downloaded here: [[nonlocal_kinetics400_mindspore.ckpt]](https://zjuteducn-my.sharepoint.com/:u:/g/personal/201906010313_zjut_edu_cn/Ec-B_Hr00QRAs49Vd7Qg4PkBslya1SjAola4hg64tpI6Vg?e=YNm0Ig)
 
-## [Running](#contents)
+### [Running](#contents)
 
 To train or finetune the model, you can run the following script:
 
 ```shell
-# distributed training on GPU （here 2 ways to choose）
- 1. CUDA_VISIBLE_DEVICES=0,1,2,3,4,5,6,7 mpirun -n 8 python src/example/nonlocal_kinetics400_train.py
- 2. CUDA_VISIBLE_DEVICES=0,1,2,3,4,5,6,7 mpirun -n 8 python train.py -c [config_file]
-```
 
+cd scripts/
+
+# run training example
+bash train_standalone.sh [PROJECT_PATH] [DATA_PATH]
+
+# run distributed training example
+bash train_distribute.sh [PROJECT_PATH] [DATA_PATH]
+
+
+```
 To validate the model, you can run the following script:
 ```shell
-# distributed training on GPU （here 2 ways to choose）
- 1. python src/example/nonlocal_kinetics400_eval.py
- 2. python infer.py -c [config_file]
+# run evaluation example
+bash eval_standalone.sh [PROJECT_PATH] [DATA_PATH]
 ```
 
-# [Script Description](#contents)
+## [Script Description](#contents)
 
-## [Script and Sample Code](#contents)
+### [Script and Sample Code](#contents)
 
 ```text
 .
@@ -192,7 +202,7 @@ To validate the model, you can run the following script:
 
 ```
 
-## [Script Parameters](#contents)
+### [Script Parameters](#contents)
 
 Parameters for both training and evaluation can be set in nonlocal.yaml
 
@@ -244,7 +254,7 @@ loss:
 
 train:
     pre_trained: True
-    pretrained_model: "/home/cxhuang/nonlocal/ms_nonlocal_dot_kinetics400_finetune.ckpt"
+    pretrained_model: "./ms_nonlocal_dot_kinetics400_finetune.ckpt"
     ckpt_path: "./output/"
     epochs: 100
     save_checkpoint_epochs: 5
@@ -253,10 +263,10 @@ train:
     run_distribute: True
 
 eval:
-    pretrained_model: "/home/cxhuang/nonlocal/best/nonlocal_ckpt_7/nonlocal-1_4975.ckpt"
+    pretrained_model: "./nonlocal-1_4975.ckpt"
 
 infer:
-    pretrained_model: "/home/cxhuang/nonlocal/best/nonlocal_ckpt_7/nonlocal-1_4975.ckpt"
+    pretrained_model: "./nonlocal-1_4975.ckpt"
     batch_size: 1
     image_path: ""
     normalize: True
@@ -324,7 +334,6 @@ data_loader:
 ```
 
 ## [Training Process](#contents)
-### Distributed training on GPU
 
 - train_distributed.log for Kinetics400
 
@@ -371,12 +380,7 @@ eval: 19876/19877
 eval: 19877/19877
 {'Top_1_Accuracy': 0.7248, 'Top_5_Accuracy': 0.9072}
 ```
-
-# [Model Download](#contents)
-
-You can download the nonlocal model for mindspore from [nonlocal_kinetics400_mindspore](https://zjuteducn-my.sharepoint.com/:u:/g/personal/201906010313_zjut_edu_cn/Ec-B_Hr00QRAs49Vd7Qg4PkBslya1SjAola4hg64tpI6Vg?e=YNm0Ig).
-
-# [Citation](#contents)
+## [Citation](#contents)
 ```BibTeX
 @article{NonLocal2018,
     author = {Xiaolong Wang and Ross Girshick and Abhinav Gupta and Kaiming He},
