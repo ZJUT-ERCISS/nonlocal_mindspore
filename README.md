@@ -26,7 +26,7 @@ This code is a re-implementation of the video classification experiments in the 
 <div align=center>
 <img src=./src/pic/nonlocal_block.png> 
 
-nonlocal_block </div>
+Figure 1 nonlocal_block </div>
 A non-local operation is a flexible building block and can be easily used together with convolutional/recurrent layers. It can be added into the earlier part of deep neural networks, unlike fc layers that are often used in the end. This allows us to build a richer hierarchy that combines both non-local and local information.
 <div align=center>
 <img src=./src/pic/baseline_ResNet50_C2D.png> 
@@ -130,6 +130,8 @@ bash train_distribute.sh [PROJECT_PATH] [DATA_PATH]
 ```
 To validate the model, you can run the following script:
 ```shell
+cd scripts/
+
 # run evaluation example
 bash eval_standalone.sh [PROJECT_PATH] [DATA_PATH]
 ```
