@@ -72,19 +72,12 @@ To run the python scripts in the repository, you need to prepare the environment
 
 - Python and dependencies
     - python 3.7.5
-    - Cython 0.29.30
-    - cython-bbox 0.1.3
     - decord 0.6.0
     - mindspore-gpu 1.6.1
     - ml-collections 0.1.1
-    - matplotlib 3.4.1
-    - motmetrics 1.2.5
     - numpy 1.21.5
     - Pillow 9.0.1
     - PyYAML 6.0
-    - scikit-learn 1.0.2
-    - scipy 1.7.3
-    - pycocotools 2.0
 - Hardware
     - Prepare hardware environment with GPU(Nvidia).
 - Framework
@@ -100,7 +93,7 @@ To run the python scripts in the repository, you need to prepare the environment
 Some packages in `requirements.txt` need Cython package to be installed first. For this reason, you should use the following commands to install dependencies:
 
 ```shell
-pip install Cython && pip install -r requirements.txt
+pip install -r requirements.txt
 ```
 
 ### [Dataset Preparation](#contents)
