@@ -138,10 +138,10 @@ bash eval_standalone.sh [PROJECT_PATH] [DATA_PATH]
 │  infer.py                                     // infer script
 │  README.md                                    // descriptions about Nonlocal
 │  train.py                                     // training script
-| ─scripts
-    | eval_standalone.sh                        //eval standalone script
-    | train_distribute.sh                       //train distribute script
-    | train_standalone.sh                       //train standalone script
+└─scripts
+    | eval_standalone.sh                        // eval standalone script
+    | train_distribute.sh                       // train distribute script
+    | train_standalone.sh                       // train standalone script
 └─src
     ├─config
     │      nonlocal.yaml                        // Nonlocal parameter configuration
