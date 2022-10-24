@@ -17,6 +17,7 @@
 from mindspore import context, nn, load_checkpoint, load_param_into_net
 from mindspore.train import Model
 from mindspore.nn.metrics import Accuracy
+from mindspore.train.callback import Callback
 
 from src.utils.check_param import Validator, Rel
 from src.utils.config import parse_args, Config
@@ -24,6 +25,12 @@ from src.loss.builder import build_loss
 from src.data.builder import build_dataset, build_transforms
 from src.models import build_model
 
+
+class PrintEvalStep(Callback):
+    """ print eval step """
+    def step_end(self, run_context):
+        cb_params = run_context.original_args()
+        print("eval: {}/{}".format(cb_params.cur_step_num, cb_params.batch_num))
 
 def infer(pargs):
     # set config context
@@ -50,13 +57,15 @@ def infer(pargs):
     # Define eval_metrics.
     eval_metrics = {'Top_1_Accuracy': nn.Top1CategoricalAccuracy(),
                     'Top_5_Accuracy': nn.Top5CategoricalAccuracy()}
+    print_cb = PrintEvalStep()
+
     # init the whole Model
     model = Model(network,
                   network_loss,
-                  metrics={"Accuracy": Accuracy()})
+                  metrics={"Accuracy": Accuracy()},)
 
     # Begin to eval.
-    result = model.eval(dataset_eval)
+    result = model.eval(dataset_eval, callbacks=[print_cb])
 
     return result
 

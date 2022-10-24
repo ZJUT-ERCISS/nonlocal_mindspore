@@ -63,7 +63,6 @@ train:
     save_checkpoint_epochs: 5
     save_checkpoint_steps: 1875
     keep_checkpoint_max: 10
-    run_distribute: True
 
 eval:
     pretrained_model: "/home/cxhuang/nonlocal/best/nonlocal_ckpt_7/nonlocal-1_4975.ckpt"

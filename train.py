@@ -13,6 +13,7 @@
 # limitations under the License.
 # ============================================================================
 """MindSpore Vision Video training script."""
+import os
 
 from mindspore import context, load_checkpoint, load_param_into_net
 from mindspore.context import ParallelMode
@@ -20,6 +21,7 @@ from mindspore.train.callback import ModelCheckpoint, CheckpointConfig, LossMoni
 from mindspore.train import Model
 from mindspore.nn.metrics import Accuracy
 from mindspore.communication.management import init, get_rank, get_group_size
+from mindspore.common import set_seed
 
 from src.utils.check_param import Validator, Rel
 from src.utils.config import parse_args, Config
@@ -34,19 +36,6 @@ def main(pargs):
     # set config context
     config = Config(pargs.config)
     context.set_context(**config.context)
-
-    # run distribute
-    if config.train.run_distribute:
-        if config.device_target == "Ascend":
-            init()
-        else:
-            init("nccl")
-        context.set_auto_parallel_context(device_num=get_group_size(),
-                                          parallel_mode=ParallelMode.DATA_PARALLEL,
-                                          gradients_mean=True)
-        ckpt_save_dir = config.train.ckpt_path + "ckpt_" + str(get_rank()) + "/"
-    else:
-        ckpt_save_dir = config.train.ckpt_path
 
     # perpare dataset
     transforms = build_transforms(config.data_loader.train.map.operations)
@@ -101,5 +90,21 @@ def main(pargs):
 
 
 if __name__ == '__main__':
+    set_seed(1)
     args = parse_args()
+    device_id = int(os.getenv('DEVICE_ID', '0'))
+    context.set_context(device_id=device_id)
+    config = Config(args.config)
+    if args.is_distribute:
+        if config.device_target == "Ascend":
+            init()
+        else:
+            init("nccl")
+        context.set_auto_parallel_context(device_num=get_group_size(),
+                                          parallel_mode=ParallelMode.DATA_PARALLEL,
+                                          gradients_mean=True)
+        ckpt_save_dir = config.train.ckpt_path + "ckpt_" + str(get_rank()) + "/"
+    else:
+        ckpt_save_dir = config.train.ckpt_path
+
     main(args)

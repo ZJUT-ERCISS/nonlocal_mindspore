@@ -327,5 +327,10 @@ def parse_args():
                         type=str,
                         default="",
                         help='Enter the path of the model config file.')
+    parser.add_argument('--is_distribute',
+                        type=int,
+                        default=0,
+                        help="Run distribute.")
+    args = parser.parse_known_args()[0]
 
-    return parser.parse_args()
+    return args
