@@ -255,11 +255,10 @@ train:
     pre_trained: True
     pretrained_model: "./ms_nonlocal_dot_kinetics400_finetune.ckpt"
     ckpt_path: "./output/"
-    epochs: 100
+    epochs: 5
     save_checkpoint_epochs: 5
-    save_checkpoint_steps: 1875
+    save_checkpoint_steps: 4975
     keep_checkpoint_max: 10
-    run_distribute: True
 
 eval:
     pretrained_model: "./nonlocal-1_4975.ckpt"
