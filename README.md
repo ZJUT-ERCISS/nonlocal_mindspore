@@ -114,10 +114,10 @@ To train or finetune the model, you can run the following script:
 cd scripts/
 
 # run training example
-bash train_standalone.sh [PROJECT_PATH] [DATA_PATH]
+bash train_standalone.sh [PROJECT_PATH] [CONFIG_PATH]
 
 # run distributed training example
-bash train_distribute.sh [PROJECT_PATH] [DATA_PATH]
+bash train_distribute.sh [PROJECT_PATH] [CONFIG_PATH]
 
 
 ```
@@ -126,7 +126,7 @@ To validate the model, you can run the following script:
 cd scripts/
 
 # run evaluation example
-bash eval_standalone.sh [PROJECT_PATH] [DATA_PATH]
+bash eval_standalone.sh [PROJECT_PATH] [CONFIG_PATH]
 ```
 
 ## [Script Description](#contents)
