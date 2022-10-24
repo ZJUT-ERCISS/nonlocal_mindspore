@@ -59,9 +59,9 @@ train:
     pre_trained: True
     pretrained_model: "/home/cxhuang/nonlocal/ms_nonlocal_dot_kinetics400_finetune.ckpt"
     ckpt_path: "./output/"
-    epochs: 100
+    epochs: 5
     save_checkpoint_epochs: 5
-    save_checkpoint_steps: 1875
+    save_checkpoint_steps: 4975
     keep_checkpoint_max: 10
 
 eval:
