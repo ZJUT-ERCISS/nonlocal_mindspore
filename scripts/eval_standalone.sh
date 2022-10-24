@@ -13,4 +13,4 @@ PYTHON_PATH=$1
 CONFIG_PATH=$2
 
 export PYTHONPATH=$PYTHON_PATH
-python $PYTHON_PATH/infer.py -c $CONFIG_PATH >  eval_standalone.log 2>&1
+python $PYTHON_PATH/eval.py -c $CONFIG_PATH >  eval_standalone.log 2>&1

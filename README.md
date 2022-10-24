@@ -135,7 +135,7 @@ bash eval_standalone.sh [PROJECT_PATH] [DATA_PATH]
 
 ```text
 .
-│  infer.py                                     // infer script
+│  eval.py                                      // eval script
 │  README.md                                    // descriptions about Nonlocal
 │  train.py                                     // training script
 └─scripts

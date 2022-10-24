@@ -62,7 +62,7 @@ def infer(pargs):
     # init the whole Model
     model = Model(network,
                   network_loss,
-                  metrics={"Accuracy": Accuracy()},)
+                  metrics=eval_metrics,)
 
     # Begin to eval.
     result = model.eval(dataset_eval, callbacks=[print_cb])
