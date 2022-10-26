@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 # ============================================================================
-"""MindSpore Vision Video infer script."""
+"""MindSpore Vision Video eval script."""
 
 from mindspore import context, nn, load_checkpoint, load_param_into_net
 from mindspore.train import Model
@@ -32,7 +32,7 @@ class PrintEvalStep(Callback):
         cb_params = run_context.original_args()
         print("eval: {}/{}".format(cb_params.cur_step_num, cb_params.batch_num))
 
-def infer(pargs):
+def eval(pargs):
     # set config context
     config = Config(pargs.config)
     context.set_context(**config.context)
@@ -51,7 +51,7 @@ def infer(pargs):
     network_loss = build_loss(config.loss)
 
     # load pretrain model
-    param_dict = load_checkpoint(config.infer.pretrained_model)
+    param_dict = load_checkpoint(config.eval.pretrained_model)
     load_param_into_net(network, param_dict)
 
     # Define eval_metrics.
@@ -72,5 +72,5 @@ def infer(pargs):
 
 if __name__ == '__main__':
     args = parse_args()
-    result = infer(args)
+    result = eval(args)
     print(result)
